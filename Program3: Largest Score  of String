@@ -1,0 +1,80 @@
+Question:
+Largest score of given String
+
+The program must accept a string S and N words as the input.
+The string S always contains exactly 26 lower case alphabets in any order. 
+The position of an alphabet in the string S represents the score of the alphabet. 
+The program must find the score of each word among the N words by finding the sum of scores of each alphabet in the word. 
+Then the program must print the word which has the maximum score as the output. 
+If two or more words have the same maximum score, the program must print the first occurring word as the output. 
+
+Boundary Condition(s): 
+1 <= N, Length of each word <= 100 
+
+Input Format: 
+The first line contains S. 
+The second line contains N. The next N lines, each contains a string value. 
+
+Output Format: 
+The first line contains the word which has the maximum score. 
+
+Example Input/Output 1: 
+Input: 
+abcdefghijklmnopqrstuvwxyz 
+5 
+pen gold doll coin book 
+
+Output: doll 
+
+Explanation: 
+Here N = 5. 
+The 5 words and their scores are given below. 
+pen - 35 (16+5+14) 
+gold - 38 (7+15+12+4) 
+doll - 43 (4+15+12+12) 
+coin - 41 (3+15+9+14) 
+book - 43 (2+15+15+11) 
+The words doll and book have the same maximum score, so the first occurring word doll is printed as the output. 
+
+Example Input/Output 2: 
+Input: 
+zyxwvutsrqponmlkjihgfedcba 
+4 
+pencil horse candle cookie 
+
+Output: candle Max Execution 
+
+Time Limit: 50 millisecs  
+
+
+Code:
+import java.util.*;
+public class Hello {
+
+    public static void main(String[] args) {
+		//Your Code Here
+          Scanner s = new Scanner(System.in); //scanner class for getting the input 
+          String S=s.nextLine(); //getting the input from String 
+          int n=s.nextInt();   // get the n as integer  eg: 5\n  
+         //s.nextLine();
+          String[] s1 = new String[100];
+          for(int i=0;i<n;i++){
+s1[i]=s.nextLine(); /* poll dog cat pig null  it not get the n string as input it only get the n-1 string as input from user*/
+          }
+          int sum=0,index=0;
+          for(int i=0;i<n;i++){
+              String l=s1[i];
+              int k=l.length();
+              int c=0;//here it store the score of the word for temporary only
+              for(int m=0;m<k;m++){
+                   c=c+((S.indexOf(l.charAt(m)))+1); //m it has the index value chatAt()return the character 
+              } //because the string from a to z its score value we assume it from 1 to 26 
+              if(c>sum){
+                  sum=c;
+                  index=i; // it contain the maximum score of the string word index value 
+              }
+          }
+          System.out.println(s1[index]); //display the output as max score of the words
+              System.out.println(s1[n-1]);
+	}
+}
