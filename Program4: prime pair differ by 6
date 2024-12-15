@@ -1,0 +1,94 @@
+Question:
+
+Prime Pairs - Differ by 6 
+
+Question:
+The program must accept an integer N as the input. 
+The program must print the pairs of prime integers that differ by 6 in the given range from 2 to N. 
+The pairs must be printed in the order of their occurrence. 
+
+Note: 
+Optimize your logic to avoid Time Limit Exceeded error. 
+
+Boundary Condition(s): 
+11 <= N <= 10^6 
+
+Input Format: 
+The first line contains N. 
+
+Output Format: 
+The lines, each containing the pairs of prime integers separated by a space. 
+
+Example Input/Output 1: 
+Input: 50 
+
+Output: 
+5 11 
+7 13 
+11 17 
+13 19 
+17 23 
+23 29 
+31 37 
+37 43 
+41 47 
+
+Explanation: 
+Here N = 50. 
+The pairs of prime integers that differ by 6 from 2 to 50 are given below. 
+5 11 
+7 13 
+11 17 
+13 19 
+17 23 
+23 29 
+31 37 
+37 43 
+41 47 
+
+Example Input/Output 2: 
+
+Input: 32 
+
+Output: 
+5 11 
+7 13 
+11 17 
+13 19 
+17 23 
+23 29
+
+Program:
+
+import java.util.Scanner;
+
+public class PrimePairsDifferBy6 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int N = scanner.nextInt(); // n as input from user n=25 means prime no from 2 25 
+        scanner.close();
+
+        boolean[] isPrime = new boolean[N + 1];
+        // Initialize the sieve array
+        for (int i = 2; i <= N; i++) { // from 2 to n it set initially as all the numbers are prime 
+            isPrime[i] = true;
+        }
+
+        // Sieve of Eratosthenes to mark non-prime numbers
+        for (int i = 2; i * i <= N; i++) {  // it just work upto sqare root of n times only 
+            if (isPrime[i]) {
+                for (int j = i * i; j <= N; j += i) {
+                    isPrime[j] = false;  
+                }
+            }
+        }
+
+        // Find and print prime pairs that differ by 6
+        for (int i = 2; i <= N - 6; i++) {
+            if (isPrime[i] && isPrime[i + 6]) {
+                System.out.println(i + " " + (i + 6));
+            }
+        }
+    }
+}
+
