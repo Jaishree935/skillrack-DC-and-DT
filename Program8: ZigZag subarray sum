@@ -1,0 +1,105 @@
+Zig-Zag Subarray Sum 
+
+Question:
+The program must accept an integer matrix of size RxC and an integer K as the input. 
+The program must print the output based on the following conditions. 
+    - For the 1st row in the matrix, the sum of integers in the 1st subset of size K must be printed. 
+    - For the 2nd row in the matrix, the sum of integers in the 2nd subset of size K must be printed. 
+    - For the 3rd row in the matrix, the sum of integers in the 3rd subset of size K must be printed. 
+    - Similarly, the program must print the sum of integers for the remaining rows by considering the subsets in zig-zag manner (1st, 2nd, 3rd, ... last, last but one, last but two, ... 2nd, 1st, 2nd, 3rd, ... and so on). 
+
+Boundary Condition(s): 
+2 <= R, 
+C <= 50 
+1 <= K < C 
+
+Input Format: 
+The first line contains R and C separated by a space. 
+The next R lines, each contains C integers separated by a space. 
+The (R+2)nd line contains K. 
+
+Output Format: 
+The first line contains R integers separated by a space. 
+
+Example Input/Output 1: 
+
+Input: 
+7 5 
+17 72 17 23 88 
+82 40 65 95 72 
+17 38 46 55 74 
+80 56 63 63 24 
+95 12 94 23 40 
+40 18 75 19 51 
+85 57 88 96 24 
+3 
+
+Output: 
+
+106 200 175 182 201 112 208 
+
+Explanation: 
+
+Here K = 3. 
+The zig-zag subsets in the matrix are highlighted below. 
+17 72 17 23 88 -> 106 
+82 40 65 95 72 -> 200 
+17 38 46 55 74 -> 175 
+80 56 63 63 24 -> 182 
+95 12 94 23 40 -> 201 
+40 18 75 19 51 -> 112 
+85 57 88 96 24 -> 208 
+
+Example Input/Output 2: 
+Input: 
+4 5 
+53 13 84 91 31 
+91 86 52 61 13 
+51 41 50 64 19 
+82 38 91 81 88 
+4 
+
+Output: 
+241 212 206 298
+
+
+code:
+import java.util.*;
+public class Main{
+      public static void main(String[] args){ 
+           Scanner s= new Scanner(System.in);
+           int R=s.nextInt();
+           int C=s.nextInt();
+           s.nextLine();
+           int[][] arr=new int[R][C];
+           for(int i=0;i<R;i++){
+               for(int j=0;j<C;j++){
+                  arr[i][j]=s.nextInt();
+               }
+            }
+           int k=s.nextInt();
+           int i=0,j=0,l=0,flag=0;
+           while(i!=R){
+               int sum=0;
+                for(int a=0;a<k;a++){
+                    sum+=arr[i][j];
+                      j++;
+                }
+                if(l==(C-k)){
+                  flag=1;
+                 }   
+                if(l==0){
+                   flag=0;
+                 }
+                 if(flag==0){
+                     l++;   
+                 }
+                 if(flag==1){
+                     l--;
+                 }
+               j=l;
+               i++;
+               System.out.print(sum+" ");
+           }
+   }
+}
