@@ -1,0 +1,97 @@
+Library Books & Requests 
+
+Question:
+In a library, B books are kept on a shelf. 
+The books are numbered 1 to B and are arranged from left to right on the shelf. 
+If a student wants to read a book (using the book number), the book can be taken from the shelf and it must be inserted to the left when the student returns the book. 
+The program must accept N integers representing the requests of N students and the value of B as the input. 
+For each request, the program must print the position of the requested book in the shelf as the output. 
+
+Note: 
+Assume that each request is processed only after returning the book of the previous request. 
+
+Boundary Condition(s): 
+1 <= N ,B <= 1000 1 <= Each integer value <= B 
+
+Input Format: 
+The first line contains N. 
+The second line contains N integers separated by a space. 
+The third line contains B. 
+
+Output Format: 
+The first line contains N integers representing the positions of the requested books. 
+
+Example Input/Output 1: 
+
+Input: 4 2 3 1 3 5 
+Output: 2 3 3 2 
+Explanation: Initially, the 5 books are arranged as 1 2 3 4 5. 
+The 1st student requests the book 2 which is present at the position 2. 
+So 2 is printed. 
+Now the 5 books are rearranged as 2 1 3 4 5. 
+The 2nd student requests the book 3 which is present at the position 3. 
+So 3 is printed. 
+Now the 5 books are rearranged as 3 2 1 4 5. 
+The 3rd student requests the book 1 which is present at the position 3. 
+So 3 is printed. 
+Now the 5 books are rearranged as 1 3 2 4 5. 
+The 4th student requests the book 3 which is present at the position 2. 
+So 2 is printed. 
+Now the 5 books are rearranged as 3 1 2 4 5. 
+
+Example Input/Output 2: 
+Input: 8 7 9 10 6 8 3 2 7 10 
+Output: 7 9 10 9 10 8 8 7
+
+
+Code:
+ 
+import java.util.*;
+
+public class LibraryBooksRequests {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Input number of requests (N)
+        int N = sc.nextInt();
+        
+        // Input the book requests
+        int[] requests = new int[N];
+        for (int i = 0; i < N; i++) {
+            requests[i] = sc.nextInt();
+        }
+        
+        // Input total number of books (B)
+        int B = sc.nextInt();
+        
+        // Initialize the shelf with books numbered from 1 to B
+        int[] shelf = new int[B];
+        for (int i = 0; i < B; i++) {
+            shelf[i] = i + 1;
+        }
+        
+        // Process each request
+        for (int i = 0; i < N; i++) {
+            int requestedBook = requests[i];
+            int position = 0;
+            
+            // Find the position of the requested book
+            for (int j = 0; j < B; j++) {
+                if (shelf[j] == requestedBook) {
+                    position = j;
+                    break;
+                }
+            }
+            
+            // Output the position (1-based index)
+            System.out.print((position + 1) + " ");
+            
+            // Move the requested book to the leftmost position
+            int temp = shelf[position];
+            for (int j = position; j > 0; j--) {
+                shelf[j] = shelf[j - 1];
+            }
+            shelf[0] = temp;
+        }
+    }
+}
