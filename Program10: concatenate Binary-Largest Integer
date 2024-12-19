@@ -1,0 +1,56 @@
+concatenate Binary - Largest Integer 
+
+Question:
+The program must accept two integers X and Y as the input. 
+The program must print the largest possible integer which is formed by concatenating the binary representations of X and Y as the output. 
+
+Boundary Condition(s): 1 <= X, Y <= 10^4 
+Input Format: 
+The first line contains X and Y separated by a space.
+ 
+Output Format: 
+The first line contains the largest possible integer which is formed by concatenating the binary representations of X and Y. 
+
+Example Input/Output 1: 
+Input: 7 10 
+Output: 122 
+
+Explanation: 
+The binary representation of 7 is 111. 
+The binary representation of 10 is 1010. 
+The largest possible integer formed is 122 and its binary representation is 1111010. 
+So 122 is printed as the output. 
+
+Example Input/Output 2: 
+Input: 8 5 
+Output: 88
+
+
+
+Program:
+import java.util.Scanner;
+
+public class ConcatenateBinaryLargest {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input X and Y
+        int X = sc.nextInt();
+        int Y = sc.nextInt();
+
+        // Convert X and Y to binary strings
+        String binaryX = Integer.toBinaryString(X);
+        String binaryY = Integer.toBinaryString(Y);
+
+        // Concatenate binary strings in both possible orders
+        String concat1 = binaryX + binaryY;
+        String concat2 = binaryY + binaryX;
+
+        // Convert concatenated binary strings to integers
+        int num1 = Integer.parseInt(concat1, 2);
+        int num2 = Integer.parseInt(concat2, 2);
+
+        // Print the larger of the two numbers
+        System.out.println(Math.max(num1, num2));
+    }
+}
