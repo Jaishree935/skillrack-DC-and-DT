@@ -1,0 +1,106 @@
+Sum of Integers - Digits 
+
+Question:
+The program must accept N integers as the input. 
+The program must print the sum of integers having all the digits already present in the previous integers among the N integers as the output. 
+If there is no such integer, the program must print -1 as the output. 
+
+Boundary Condition(s): 
+1 <= N <= 100 1 <= Each integer value <= 10^8 
+
+Input Format: 
+The first line contains N. 
+The second line contains N integers separated by a space. 
+
+Output Format: 
+The first line contains the sum of integers having all the digits already present in the previous integers or -1. 
+
+Example Input/Output 1: 
+Input: 
+8 
+3791 5548 4419 1860 1532 2180 6684 2959 
+Output: 
+16242 
+
+Explanation: 
+
+Here N = 8. 
+The first occurrences of all 10 digits in the given 8 integers (left to right) are highlighted below. 
+3791 5548 4419 1860 1532 2180 6684 2959 
+4419 - All digits in 4419 are already present in the previous integers. 
+2180 - All digits in 2180 are already present in the previous integers. 
+6684 - All digits in 6684 are already present in the previous integers. 
+2959 - All digits in 2959 are already present in the previous integers. 
+The sum of these four integers is 16242, which is printed as the output. 
+
+Example Input/Output 2: 
+Input: 
+7 
+164 228 39 657 756 746 330 
+Output: 1502 
+
+Example Input/Output 3: 
+Input: 
+3 
+164 762 60 
+Output: -1
+
+import java.util.*;
+
+public class SumOfDigits {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Read the size of the array
+        long a = sc.nextLong();
+
+        // Read the array elements
+        long[] b = new long[(int) a];
+        for (int i = 0; i < a; i++) {
+            b[i] = sc.nextLong();
+        }
+
+        // HashMap to track frequency of digits
+        HashMap<Long, Long> freq = new HashMap<>();
+        long sum = 0;
+        boolean found = false;
+
+        // Process each element
+        for (int i = 1; i < a; i++) {
+            // Process the previous number to add digits to the frequency map
+            long x = b[i - 1];
+            while (x > 0) {
+                long h = x % 10;
+                freq.put(h, freq.getOrDefault(h, 0L) + 1);
+                x /= 10;
+            }
+
+            // Check the current number
+            long y = b[i];
+            boolean allDigitsPresent = true;
+            long temp = y;
+            while (temp > 0) {
+                long h = temp % 10;
+                if (!freq.containsKey(h)) {
+                    allDigitsPresent = false;
+                    break;
+                }
+                temp /= 10;
+            }
+
+            // If all digits are present, add the number to the sum
+            if (allDigitsPresent) {
+                sum += b[i];
+                found = true;
+            }
+        }
+
+        // Print the result
+        if (!found) {
+            System.out.println("-1");
+        } else {
+            System.out.println(sum);
+        }
+    }
+}
