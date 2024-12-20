@@ -1,0 +1,95 @@
+Concatenation - Common Part 
+
+Question:
+The program must accept a string S and N string values as the input. 
+For each string X among the N string values, the program must compare it with the string S, and print the output based on the following conditions. 
+    - If some characters at end of S are matched with the characters at the begining of X, the program must concatenate the string values S and X so that the common part occurs once. 
+    - If it is possible to concatenate, the program must print the concatenated string as the output. 
+      Else the program must print -1 as the output. 
+
+Boundary Condition(s): 
+ 
+1 <= Length of S and each string value <= 100 1 <= N <= 50 
+
+Input Format: 
+The first line contains S. 
+The second line contains N. 
+The next N lines, each contains a string value. 
+
+Output Format: 
+The first N lines, each contains the concatenated string or -1. 
+
+Example Input/Output 1: 
+Input: 
+skillrack 
+5 
+king 
+racks 
+rock 
+acknowledge 
+skillrack 
+
+Output: 
+skillracking 
+skillracks 
+-1 
+skillracknowledge 
+skillrack 
+
+Explanation: 
+Here S = skillrack. 
+The common part between S and the 1st string is k. 
+So the concatenated string is skillracking, which is printed in the 1st line. 
+The common part between S and the 2nd string is rack. 
+So the concatenated string is skillracks, which is printed in the 2nd line. 
+There is no common part between S and the 3rd string. 
+So -1 is printed in the 3rd line. 
+The common part between S and the 4th string is ack. 
+So the concatenated string is skillracknowledge, which is printed in the 4th line. 
+The string S and the 5th string are equal. So the string skillrack is printed as it is. 
+
+Example Input/Output 2: 
+Input: 
+knowledge 
+7 
+gender 
+lodge 
+ledger 
+edgeless 
+edge 
+dodge 
+edgeedge 
+
+Output: 
+knowledgender 
+-1 
+knowledger 
+knowledgeless 
+knowledge 
+-1 
+knowledgeedge
+
+
+Program:
+import java.util.*;
+public class ConcatenationCommonPart {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String S = sc.nextLine();
+        int N = sc.nextInt();
+        sc.nextLine(); 
+        for (int i = 0; i < N; i++) {
+            String X = sc.nextLine();
+            String result = findCommonConcat(S, X);
+            System.out.println(result);
+        }
+    }
+    private static String findCommonConcat(String S, String X) {
+        for (int i = Math.min(S.length(), X.length()); i > 0; i--) {
+            if (S.endsWith(X.substring(0, i))) {
+        return S + X.substring(i);
+            }
+        }
+        return "-1";
+    }
+}
