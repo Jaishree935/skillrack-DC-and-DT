@@ -1,0 +1,77 @@
+Customers Group - 
+
+Purchase Amount In a pantry, N customers have purchased the items they need. 
+The name of each customer and his/her total purchase amount A are passed as the input to the program. 
+The program must group the customers based on the purchase amount (i.e., the customers with the same purchase amount belong to one group). 
+The program must print the purchase amount and the names of the customers belonging to each group as the output. 
+The purchase amounts must be printed in descending order. 
+In each group, the names of the customers must be printed in sorted order. 
+
+Boundary Condition(s): 
+1 <= N <= 50 1 <= Length of customer's name <= 20 10 <= A <= 10^5 
+
+Input Format: 
+The first line contains N. 
+The next N lines, each containing the customer name and his/her total purchase amount separated by a space. 
+
+Output Format: 
+The line(s), each containing the total purchase amount and the customer(s) name separated by a space. 
+
+Example Input/Output 1: 
+Input: 
+5 
+ghi 1500 
+def 1200
+abc 1500 
+jkl 1500 
+mno 1600 
+
+Output: 
+1600 mno 
+1500 abc, ghi, jkl 
+1200 def 
+
+Explanation: 
+The purchase amounts in descending order are 1600, 1500 and 1200. 
+There is only one customer who has purchased the items for 1600. 
+1600 mno There are three customers who have purchased the items for 1500. 
+1500 abc, ghi, jkl There is only one customer who has purchased the items for 1200. 
+1200 def 
+
+Example Input/Output 2: 
+Input: 4 
+abcd 950 
+Efg 2700 
+PQR 950 
+mno 950 
+
+Output: 
+2700 Efg 
+950 PQR, abcd, mno
+
+
+program:
+import java.util.*;
+public class Hello {
+
+    public static void main(String[] args) {
+     Scanner s= new Scanner(System.in);
+     int n=s.nextInt();
+     s.nextLine();
+     HashMap<Integer,List<String>> h=new HashMap<>();
+     for(int i=0;i<n;i++){
+         String[] S=s.nextLine().split(" ");
+         String name=S[0];
+         int amount=Integer.parseInt(S[1]);
+         h.putIfAbsent(amount,new ArrayList<>());
+         h.get(amount).add(name);
+     }
+     List<Integer> l= new ArrayList<>(h.keySet());
+     Collections.sort(l,Collections.reverseOrder());
+     for(int am:l){
+         List<String> c= h.get(am);
+         Collections.sort(c);
+         System.out.println(am+" "+String.join(", ",c));
+     }
+    }
+}
