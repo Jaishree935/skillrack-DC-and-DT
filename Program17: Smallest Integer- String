@@ -1,0 +1,77 @@
+Smallest Integer - String
+Problem Statement
+The program must accept N strings containing words and integers as input and print the smallest integer in each string. If a string contains no integers, the output must be -1.
+
+Input Format
+The first line contains the integer N, representing the number of strings.
+The next N lines each contain a string composed of words and integers.
+Output Format
+For each input string, print the smallest integer found in the string.
+If no integers are present in the string, print -1.
+Boundary Conditions
+ 1 <= N <= 50 2 <= Length of each string <= 100 1 <= Each integer value <= 10^8
+ 
+Example Input and Output
+Example 1
+Input:
+3
+This is alpha 89830 beta 90 and gamma 901
+I am 12 years old
+Hii everyone
+
+Output:
+90
+12
+-1
+Example 2
+Input:
+5
+Hiii this 43093 is my number 43094
+i am 34 a 67 robot 23
+My marks are 45 89 90
+Hello everyone
+Flower is beautiful 7
+
+Output:
+43093
+23
+45
+-1
+7
+
+code:
+import java.util.*;
+public class Hello {
+
+    public static void main(String[] args) {
+		//Your Code Here
+        Scanner s= new Scanner(System.in);
+        int n=s.nextInt();
+        s.nextLine();
+        for(int i=0;i<n;i++){
+            String S=s.nextLine();
+            String[] S1=S.split(" ");
+           int min=Integer.MAX_VALUE,f=0;
+            for(int j=0;j<S1.length;j++){
+                if(S1[j].matches("\\d+")){
+                   int n1=Integer.parseInt(S1[j]);
+                   if(n1<min){
+                       min=n1;
+                       f=1;
+                   }
+                } 
+            }
+            if(f!=0){
+            System.out.println(min);
+            }
+            else{
+                System.out.println("-1");
+            }
+        }
+	}
+}
+
+
+
+
+
