@@ -1,0 +1,115 @@
+Bomb Explosion - Two Types 
+
+A matrix of size R*C is passed as the input to the program. 
+The character P represents a person. 
+The character * represents an empty space. 
+The characters + and x represent the bomb. 
+The bomb x destroys the top-left, top-right, bottom-left and bottom-right cells. 
+The bomb + destroys the top, right, bottom and left cells. 
+The program must print the number of persons remaining after the explosion of all bombs. 
+
+Boundary Condition(s): 
+1 <= R, C <= 50 
+
+Input Format: 
+The first line contains R and C separated by a space. 
+The next R lines, each contains C characters separated by a space. 
+
+Output Format: 
+The first line contains an integer represents the number of persons remaining after the explosion of all bombs. 
+
+Example Input/Output 1: 
+
+Input: 
+5 5 
+* P P * P 
+* + P * P 
+* P P P P 
+* P * P x 
+* P * P P 
+Output: 
+9 
+Explanation: 
+
+There are 2 bombs and 14 persons in the given matrix. 
+After explosion of the two bombs, the matrix becomes 
+* * P * P 
+* * * * P 
+* * P * P 
+* P * P * 
+* P * * P 
+Now 9 persons remaining in the matrix. 
+So 9 is printed as the output. 
+
+Example Input/Output 2: 
+Input: 
+3 10 
+P P P P P + P P P P 
+P + P x P P P x + P 
+P P P P P + P P P P 
+Output: 
+10 
+Explanation: 
+There are 6 bombs and 24 persons in the given matrix. 
+After explosion of the six bombs, the matrix becomes 
+P * * P * * * P * P 
+* * * * P * P * * * 
+P * * P * * * P * P 
+Now 10 persons remaining in the matrix. 
+So 10 is printed as the output.
+
+
+
+code:
+
+import java.util.*;
+public class Hello {
+
+    public static void main(String[] args) {
+       Scanner s= new Scanner(System.in);
+       int r=s.nextInt();
+       int c=s.nextInt();
+       s.nextLine();
+       char a[][] =new char[r][c];
+       boolean b[][] = new boolean[r][c];
+       for(int i=0;i<r;i++){
+           for(int j=0;j<c;j++){
+                   a[i][j]=s.next().charAt(0);
+           }
+       }
+       int[][] plus={{-1,0},{1,0},{0,1},{0,-1}};
+       int [][] mult={{-1,-1},{1,1},{1,-1},{-1,1}};
+       for(int i=0;i<r;i++){
+           for(int j=0;j<c;j++){
+               if(a[i][j]=='+'){
+                   for(int[] d : plus){
+                    int   n1=i+d[0];
+                     int  n2=j+d[1];
+                       if(n1>=0 && n1<r && n2>=0 && n2<c){
+                           b[n1][n2]=true;
+                       }
+                   }
+               }
+               else if(a[i][j]=='x'){
+                   for(int [] d: mult){
+                     int  n1=i+d[0];
+                     int   n2=j+d[1];
+                       if(n1>=0 && n1<r && n2>=0 && n2<c){
+                           b[n1][n2]=true;
+                       }
+                   }
+               }
+           }
+       }
+       int count=0;
+       for(int i=0;i<r;i++)
+       {
+           for(int j=0;j<c;j++){
+               if(a[i][j]=='P' && !b[i][j]){
+                   count++;
+               }
+           }
+       }
+       System.out.println(count);
+	}
+}
