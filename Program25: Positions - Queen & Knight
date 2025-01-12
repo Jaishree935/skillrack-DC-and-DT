@@ -1,0 +1,151 @@
+Positions - Queen & Knight 
+
+Question:
+The program must accept the position of a queen and the position of a knight in a chess board of size 8*8 as the input. 
+The program must generate a matrix of size 8*8 representing the chess board and fill the matrix based on the following conditions. 
+    - The position of the queen must be filled with the character Q. 
+    - The position of the knight must be filled with the character K. 
+    - All positions where the queen can move must be filled with the character q. 
+    - All positions where the knight can move must be filled with the character k. 
+    - If both queen and knight meet in a position(other than the positions of the queen and the knight), then it must be filled with the character x. 
+    - All remaining positions must be filled with 0. 
+Finally, the program must print the matrix as the output. 
+
+Note: 
+  In Chess, queen can move any direction diagonally. 
+  The queen can also move left or right along the row it is present. 
+  The queen can also move up or down along the column it is present. 
+  The movement can happen till the end of the board is reached. 
+  In Chess, knight can move two squares vertically and one square horizontally, or two squares horizontally and one square vertically (with both forming the shape of an L). 
+
+Input Format: 
+
+The first line contains two integer values representing the position of a queen in a chess board. 
+The second line contains two integer values representing the position of a knight in a chess board. 
+
+Output Format: 
+The lines contain a matrix representing the chess board. 
+
+Example Input/Output 1: 
+Input:
+2 2 
+4 8 
+Output: 
+q q q 0 0 0 0 0 
+q Q q q q q x q 
+q q q 0 0 k 0 0 
+0 q 0 q 0 0 0 K 
+0 q 0 0 q k 0 0 
+0 q 0 0 0 q k 0 
+0 q 0 0 0 0 q 0 
+0 q 0 0 0 0 0 q 
+
+Explanation: 
+The position of the queen is (2, 2), which is filled with the character Q. 
+The position of the knight is (4, 8), which is filled with the character K. 
+All positions where the queen can move are filled with the character q. 
+All positions where the knight can move are filled with the character k. 
+The only position where both the queen and the knight meet is (2, 7), which is filled with the character x. 
+All remaining positions are filled with 0. 
+
+Example Input/Output 2: 
+
+Input: 
+3 1 
+5 5 
+Output: 
+q 0 q 0 0 0 0 0 
+q q 0 0 0 0 0 0 
+Q q q x q x q q 
+q q k 0 0 0 k 0 
+q 0 q 0 K 0 0 0 
+q 0 k q 0 0 k 0 
+q 0 0 k q k 0 0 
+q 0 0 0 0 q 0 0 
+Example Input/Output 3: 
+Input: 
+3 3 
+4 5 
+Output: 
+q 0 q 0 q 0 0 0 
+0 q q x 0 k 0 0 
+q q Q q q q x q 
+0 q q q K 0 0 0 
+q 0 x 0 q 0 k 0 
+0 0 q k 0 x 0 0
+0 0 q 0 0 0 q 0 
+0 0 q 0 0 0 0 q
+
+
+
+code:
+import java.util.*;
+public class Hello {
+
+    public static void main(String[] args) {
+        //Your Code Here
+        Scanner s = new Scanner(System.in);
+        int r1 = s.nextInt();
+        int c1 = s.nextInt();
+        int r2 = s.nextInt();
+        int c2 = s.nextInt();
+        char m[][] = new char[8][8];
+        
+        // Initialize the board with '0'
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                m[i][j] = '0';
+            }
+        }
+        
+        // Place Queen and Knight
+        m[r1][c1] = 'Q';
+        m[r2][c2] = 'K';
+        
+        // Mark Queen's valid moves
+        for (int i = 0; i < 8; i++) {
+            // Same row and column
+            if (i != r1) mark(m, i, c1, 'q');
+            if (i != c1) mark(m, r1, i, 'q');
+            
+            // Diagonal moves
+            if (r1 + i < 8 && c1 + i < 8) mark(m, r1 + i, c1 + i, 'q');
+            if (r1 - i >= 0 && c1 - i >= 0) mark(m, r1 - i, c1 - i, 'q');
+            if (r1 + i < 8 && c1 - i >= 0) mark(m, r1 + i, c1 - i, 'q');
+            if (r1 - i >= 0 && c1 + i < 8) mark(m, r1 - i, c1 + i, 'q');
+        }
+        
+        // Mark Knight's valid moves
+        int[] kr = {-2, -1, 1, 2, 2, 1, -1, -2};
+        int[] kc = {1, 2, 2, 1, -1, -2, -2, -1};    
+        for (int i = 0; i < 8; i++) {
+            int n1 = r2 + kr[i];
+            int n2 = c2 + kc[i];
+            if (Valid(n1, n2)) {
+                mark(m, n1, n2, 'k');
+            }
+        }    
+        
+        // Print the board
+        for (char[] row : m) {
+            for (char cell : row) {
+                System.out.print(cell + " ");
+            }
+            System.out.println();
+        }
+    }
+    
+    // Mark the board and handle conflicts (Queen and Knight meeting)
+    private static void mark(char[][] m, int row, int col, char c) {
+        if (m[row][col] == '0') {
+            m[row][col] = c;
+        } else if (((m[row][col] == 'q') && (c == 'k')) || ((m[row][col] == 'k') && (c == 'q'))) {
+            m[row][col] = 'x';
+        }
+    }
+    
+    // Check if the position is within the board
+    private static boolean Valid(int row, int col) {
+        return row >= 0 && row < 8 && col >= 0 && col < 8;
+    }
+}
