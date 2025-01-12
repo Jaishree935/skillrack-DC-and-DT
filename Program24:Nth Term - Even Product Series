@@ -1,0 +1,70 @@
+Nth Term - Even Product Series 
+
+Question:
+The program must accept two integers N and X as the input. 
+The program must form a series of integers based on the following conditions. 
+     - The 1st integer in the series is always 2 (1st even integer). If the 1st integer is greater than X, then it must be decreased by X. 
+     - The 2nd integer in the series is equal to the product of the previous term and 4 (2nd even integer). If the 2nd integer is greater than X, then it must be decreased by X. 
+     - The 3rd integer in the series is equal to the product of the previous term and 6 (3rd even integer). If the 3rd integer is greater than X, then it must be decreased by X. 
+     - The 4th integer in the series is equal to the product of the previous term and 8 (4th even integer). If the 4th integer is greater than X, then it must be decreased by X. 
+     - Similarly, the remaining integers are formed in the series. Finally, the program must print the Nth term in the series as the output. 
+
+Boundary Condition(s): 
+    1 <= N <= 10 1 <= X <= 10^5 
+
+Input Format: 
+    The first line contains N and X separated by a space. 
+
+Output Format: 
+    The first line contains the Nth term in the above mentioned series. 
+
+Example Input/Output 1: 
+Input: 
+4 40 
+
+Output: 
+24 
+Explanation: 
+Here N = 4 and X = 40. 
+The 1st term in the series is 2, which not greater than 40. 
+The 2nd term in the series is 8 (2*4), which is not greater than 40. 
+The 3rd term in the series is 48 (8*6), which is greater than 40. So it is decreased by 40. So the 3rd term becomes 8. 
+The 4th term in the series is 64 (8*8), which is greater than 40. So it is decreased by 40. So the 4th term becomes 24. 
+Hence 24 (4th term) is printed as the output. 
+
+Example Input/Output 2: 
+
+Input: 5 48 
+Output: 3312 
+Explanation: 
+Here N = 5 and X = 48. 
+1st term = 2. 
+2nd term = 8 (2*4). 
+3rd term = 48 (8*6). 
+4th term = 384 (48*8) -> 336 (384-48). 
+   5th term = 3360 (336*10) -> 3312 (3360-48).
+
+
+
+Code:
+
+import java.util.*;
+public class Hello {
+
+    public static void main(String[] args) {
+    Scanner s= new Scanner(System.in);
+    int a=s.nextInt();
+    int b=s.nextInt();
+    int k=0,l=2;
+    long d=2;
+    while(k<a){
+            d=d*l;
+            if(d>b){
+                d-=b;
+            }
+            l+=2;
+            k++;
+    }
+    System.out.print(d);
+	}
+}
