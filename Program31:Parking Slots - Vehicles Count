@@ -1,0 +1,73 @@
+Parking Slots - Vehicles Count 
+
+Question:
+There are several vehicles parked in a matrix format. 
+But the vehicles can be of varying size (length). 
+A parked vehicle is represented by one or more V along a given row. 
+An empty parking slot is represented using a dot(.) 
+The program must accept the matrix representing the R*C parking slots and print the number of vehicles N. 
+
+Boundary Condition(s): 1 <= R, C <= 100 
+
+Input Format: 
+The first line contains R and C separated by a space. 
+The next R lines contain the parking slots status. 
+
+Output Format: 
+The first line contains N. 
+
+Example Input/Output 1: 
+Input: 
+3 5 
+V V . V . 
+. . . V . 
+. V V V V 
+
+Output: 
+4 
+
+Explanation: 
+In the first row, there are 2 vehicles parked. 
+In the second row, there is one vehicle parked. 
+In the third row, there is one vehicle parked. 
+So totally there are 4 vehicles. 
+
+Example Input/Output 2: 
+Input: 
+3 5 
+V V V V . 
+. . . V . 
+. V V V V 
+
+Output: 3   
+
+Code:
+import java.util.*;
+public class Hello {
+
+    public static void main(String[] args) {
+		//Your Code Here
+         Scanner s= new Scanner(System.in);
+         int r=s.nextInt();
+         int c=s.nextInt();
+         char[][] C=new char[r][c];
+         for(int i=0;i<r;i++){
+             for(int j=0;j<c;j++){
+                 C[i][j]=s.next().charAt(0);
+         //System.out.println(C[i][j]);
+             }
+         }
+         int v=0;
+         for(int i=0;i<r;i++){
+             if(C[i][0]=='V'){
+                 v++;
+             }  
+             for(int j=1;j<c;j++){
+             if(C[i][j-1]=='.' && C[i][j]=='V'){
+                 v++ ;
+                }
+             }
+         }
+         System.out.print(v);
+	}
+}
