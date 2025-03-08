@@ -1,0 +1,63 @@
+Largest Odd Number:
+ The program must accept a string S and print the largest odd number L present in S. 
+If there is no odd number in S, the program must print 0 as the output. 
+
+Boundary Condition(s): 1 <= Length of S <= 100 
+
+Input Format: 
+The first line contains S. 
+
+Output Format: 
+The first line contains L or 0 as per the given condition. 
+
+Example Input/Output 1: 
+Input: 123456 
+Output: 12345 
+
+Explanation: 
+Here S = 123456, 
+the odd integers present in the string 123456 are given below 
+1 
+123 
+12345 
+23 
+3 
+2345 
+345 
+45 
+5 
+The largest odd integer in the string is 12345. 
+So 12345 is printed as the output. 
+
+Example Input/Output 2: 
+Input: 4466 
+Output: 0
+
+code:
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next(); // Read input string
+        sc.close();
+
+        int maxOddIndex = -1;
+
+        // Find the rightmost odd digit
+        for (int i = s.length() - 1; i >= 0; i--) {
+            int digit = s.charAt(i) - '0'; // Convert char to integer
+            if (digit % 2 == 1) { // Check if odd
+                maxOddIndex = i;
+                break;
+            }
+        }
+
+        // If no odd digit found, print 0
+        if (maxOddIndex == -1) {
+            System.out.println(0);
+        } else {
+            System.out.println(s.substring(0, maxOddIndex + 1)); // Largest odd number
+        }
+    }
+}
